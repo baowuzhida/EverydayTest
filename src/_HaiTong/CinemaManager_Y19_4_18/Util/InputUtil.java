@@ -15,6 +15,7 @@ public class InputUtil {
             }
         }
     }
+
     public static String getInputByString(Scanner input){
         while (true){
             try {

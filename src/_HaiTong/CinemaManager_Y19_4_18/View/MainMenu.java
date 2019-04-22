@@ -117,7 +117,6 @@ public class MainMenu {
                         default:
                             System.out.println("输入错误，返回！");
                             return;
-
                     }
                 } catch (Exception e) {
                     System.out.println("请正常输入！！！");
