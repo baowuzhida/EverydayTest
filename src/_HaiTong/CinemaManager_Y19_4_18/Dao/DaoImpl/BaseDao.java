@@ -88,13 +88,12 @@ public class BaseDao {
             }
             rs = pstmt.executeQuery();
             ResultSetMetaData rsd = rs.getMetaData();
-            System.out.println(rsd.getColumnCount());
+
             while (rs.next()) {
                 T m = cls.newInstance();
                 for (int i = 0; i < rsd.getColumnCount(); i++) {
                     String col_name = rsd.getColumnName(i + 1);
                     Object value = rs.getObject(col_name);
-                    System.out.println(value);
                     Field field = cls.getDeclaredField(col_name);//映射
                     field.setAccessible(true);//关闭安全检查提高速度
                     field.set(m, value);

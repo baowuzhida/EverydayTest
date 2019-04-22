@@ -2,11 +2,16 @@ package _HaiTong.CinemaManager_Y19_4_18.Dao.DaoImpl;
 
 import _HaiTong.CinemaManager_Y19_4_18.Dao.UserDao;
 import _HaiTong.CinemaManager_Y19_4_18.Entity.User;
+import _HaiTong.CinemaManager_Y19_4_18.Util.GlobalUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImpl extends BaseDao implements UserDao {
+
+
+    private GlobalUtil globalUtil = new GlobalUtil();
+
     @Override
     public User resarchByName(String name) throws Exception {
         String sql = "select * from dvd_user where u_name = ?";
@@ -41,6 +46,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         if (users.size() == 0) {
             return false;
         }
+        globalUtil.setUserInfo(users.get(0));
         return true;
     }
 }
