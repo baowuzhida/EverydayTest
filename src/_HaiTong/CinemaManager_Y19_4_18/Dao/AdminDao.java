@@ -8,8 +8,5 @@ public interface AdminDao {
 
     boolean loginAdmin(String name,String password) throws  Exception;
 
-    List<Movie> selectMovie() throws Exception;
-
-    boolean addMovie(List<Movie> movies) throws Exception;
 
 }

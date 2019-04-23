@@ -2,6 +2,8 @@ package _HaiTong.CinemaManager_Y19_4_18.View;
 
 import _HaiTong.CinemaManager_Y19_4_18.Biz.AdminBiz;
 import _HaiTong.CinemaManager_Y19_4_18.Biz.BizImpl.AdminBizImpl;
+import _HaiTong.CinemaManager_Y19_4_18.Biz.BizImpl.MovieBizImpl;
+import _HaiTong.CinemaManager_Y19_4_18.Biz.MovieBiz;
 import _HaiTong.CinemaManager_Y19_4_18.Entity.Movie;
 import _HaiTong.CinemaManager_Y19_4_18.Util.InputUtil;
 
@@ -12,8 +14,10 @@ import java.util.Scanner;
 public class MovieControl {
 
     private Scanner scanner;
+    private MovieBiz movieBiz;
 
     public void movieControl() throws Exception {
+        movieBiz = new MovieBizImpl();
         scanner = new Scanner(System.in);
         while (true) {
             System.out.println("请选择操作：");
@@ -27,8 +31,10 @@ public class MovieControl {
                     selectMovie();
                     break;
                 case 3:
+                    updateMovie();
                     break;
                 case 4:
+                    deleteMovie();
                     break;
                 case 5:
                     return;
@@ -38,21 +44,92 @@ public class MovieControl {
         }
     }
 
+    private void updateMovie() throws Exception {
+        scanner = new Scanner(System.in);
+        List<Movie> movies = new ArrayList<>();
+        while (true) {
+            System.out.println("\n\n\n\n 当前列表有如下电影：");
+            selectMovie();
+            System.out.println("请输入需要更新的电影编号：");
+            int id = InputUtil.getInputByInt(scanner);
+            if (!movieBiz.findMoviebyId(id)) {
+                System.out.println("电影编号不存在！返回上一级！");
+                return;
+            }
+            System.out.println("请输入电影名称：(不更改输入-1）");
+            String name = InputUtil.getInputByString(scanner);
+            System.out.println("请输入电影时长（分钟）：(不更改输入-1）");
+            int duration = InputUtil.getMovieDuration(scanner);
+            System.out.println("请输入电影类型（1-3）：(不更改输入-1）\n\n  类型对照表  \n\n 1-好看  2-一般  3-难看");
+            int type = InputUtil.getMovieType(scanner);
+            System.out.println("请输入电影信息：(不更改输入-1）");
+            String info = InputUtil.getInputByString(scanner);
+            Movie movie = new Movie(id, name, duration, type, info);
+            movies.add(movie);
+            System.out.println("是否继续更新：");
+            System.out.println("1.继续  Other.结束");
+            int ifadd = InputUtil.getInputByInt(scanner);
+            if (ifadd != 1)
+                break;
+        }
+        if (movieBiz.updateMovie(movies)) {
+            System.out.println("更新成功！");
+        } else {
+            System.out.println("更新失败！");
+        }
+
+    }
+
+    private void deleteMovie() throws Exception {
+        scanner = new Scanner(System.in);
+        System.out.println("当前有如下电影：");
+        selectMovie();
+        System.out.println("请输入需要删除的电影编号(输入-1清空）：");
+        int id = InputUtil.getInputByInt(scanner);
+        if (!movieBiz.findMoviebyId(id) && id != -1) {
+            System.out.println("电影编号不存在！返回上一级！");
+            return;
+        }
+        if (id == -1) {
+            System.out.println("您确定要清空吗？！！！ 1.确定  Other.取消");
+            int choose = InputUtil.getInputByInt(scanner);
+            if (choose == 1) {
+                if (movieBiz.delMovie(id)) {
+                    System.out.println("清空成功！");
+                } else {
+                    System.out.println("清空失败！");
+                }
+            }
+        } else {
+            if (movieBiz.delMovie(id)) {
+                System.out.println("删除成功！");
+            } else {
+                System.out.println("删除失败！");
+            }
+        }
+
+
+    }
+
     private void selectMovie() throws Exception {
         List<Movie> movies = new ArrayList<>();
-        movies = new AdminBizImpl().selectMovie();
-        movies.forEach(System.out::println);
+        movies = movieBiz.selectMovie();
+        if (movies != null)
+            movies.forEach(System.out::println);
+        else
+            System.out.println("暂无电影信息!");
     }
 
     private void addMovie() throws Exception {
+        scanner = new Scanner(System.in);
         List<Movie> movies = new ArrayList<>();
         while (true) {
             System.out.println("请输入电影名称：");
             String name = InputUtil.getInputByString(scanner);
             System.out.println("请输入电影时长（分钟）：");
-            int duration = InputUtil.getInputByInt(scanner);
-            System.out.println("请输入电影类型（1-9）：");
-            int type = InputUtil.getInputByInt(scanner);
+            int duration = InputUtil.getMovieDuration(scanner);
+            System.out.println("请输入电影类型（1-3）：");
+            int type = InputUtil.getMovieType(scanner);
             System.out.println("请输入电影信息：");
             String info = InputUtil.getInputByString(scanner);
             Movie movie = new Movie(name, duration, type, info);
@@ -64,7 +141,7 @@ public class MovieControl {
                 break;
             }
         }
-        if (new AdminBizImpl().addMovie(movies)) {
+        if (movieBiz.addMovie(movies)) {
             System.out.println("插入成功！");
         } else {
             System.out.println("插入失败！");

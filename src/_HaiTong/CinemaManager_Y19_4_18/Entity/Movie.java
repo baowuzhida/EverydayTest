@@ -17,6 +17,14 @@ public class Movie {
         this.m_info = m_info;
     }
 
+    public Movie(int m_id, String m_name, int m_duration, int m_type, String m_info) {
+        this.m_id = m_id;
+        this.m_name = m_name;
+        this.m_duration = m_duration;
+        this.m_type = m_type;
+        this.m_info = m_info;
+    }
+
     public int getM_id() {
         return m_id;
     }
@@ -60,6 +68,7 @@ public class Movie {
     @Override
     public String toString() {
         return "Movie{" +
+                " 电影编号='" + m_id + '\'' +
                 " 电影名称='" + m_name + '\'' +
                 ", 电影时长=" + m_duration +
                 ", 电影类型=" + m_type +

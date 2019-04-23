@@ -8,7 +8,4 @@ public interface AdminBiz {
 
     boolean adminLogin(String name,String password) throws Exception;
 
-    List<Movie> selectMovie() throws  Exception;
-
-    boolean addMovie(List<Movie> movies) throws Exception;
 }

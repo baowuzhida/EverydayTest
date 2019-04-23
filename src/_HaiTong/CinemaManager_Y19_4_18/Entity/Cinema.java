@@ -15,6 +15,13 @@ public class Cinema {
         this.c_info = c_info;
     }
 
+    public Cinema(int c_id, String c_name, String c_address, String c_info) {
+        this.c_id = c_id;
+        this.c_name = c_name;
+        this.c_address = c_address;
+        this.c_info = c_info;
+    }
+
     public int getC_id() {
         return c_id;
     }
@@ -45,6 +52,16 @@ public class Cinema {
 
     public void setC_info(String c_info) {
         this.c_info = c_info;
+    }
+
+    @Override
+    public String toString() {
+        return "Cinema{" +
+                "电影院编号=" + c_id +
+                ", 电影院名称='" + c_name + '\'' +
+                ", 电影院地址='" + c_address + '\'' +
+                ", 电影院信息='" + c_info + '\'' +
+                '}';
     }
 }
 
