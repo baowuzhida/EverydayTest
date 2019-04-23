@@ -29,6 +29,7 @@ public class AdminMenu {
                     new TicketInfoControl().ticketInfoControl();
                     break;
                 case 5:
+                    changePassword();
                     break;
                 case 6:
                     return;
@@ -36,5 +37,9 @@ public class AdminMenu {
                     System.out.println("输入错误请重新输入");
             }
         }
+    }
+
+    private void changePassword(){
+
     }
 }

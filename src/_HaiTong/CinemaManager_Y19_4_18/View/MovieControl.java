@@ -1,7 +1,5 @@
 package _HaiTong.CinemaManager_Y19_4_18.View;
 
-import _HaiTong.CinemaManager_Y19_4_18.Biz.AdminBiz;
-import _HaiTong.CinemaManager_Y19_4_18.Biz.BizImpl.AdminBizImpl;
 import _HaiTong.CinemaManager_Y19_4_18.Biz.BizImpl.MovieBizImpl;
 import _HaiTong.CinemaManager_Y19_4_18.Biz.MovieBiz;
 import _HaiTong.CinemaManager_Y19_4_18.Entity.Movie;
@@ -20,7 +18,7 @@ public class MovieControl {
         movieBiz = new MovieBizImpl();
         scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("请选择操作：");
+            System.out.println("\n\n\n\n  请选择操作：");
             System.out.println("1.添加电影 2.电影查询 3.修改电影 4.删除电影 5.返回");
             int choose = InputUtil.getInputByInt(scanner);
             switch (choose) {

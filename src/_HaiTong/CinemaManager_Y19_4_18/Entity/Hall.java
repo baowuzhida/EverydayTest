@@ -9,6 +9,13 @@ public class Hall {
     public Hall() {
     }
 
+    public Hall(int h_id, String h_name, int h_cinema, int h_capacity) {
+        this.h_id = h_id;
+        this.h_name = h_name;
+        this.h_cinema = h_cinema;
+        this.h_capacity = h_capacity;
+    }
+
     public Hall(String h_name, int h_cinema, int h_capacity) {
         this.h_name = h_name;
         this.h_cinema = h_cinema;
@@ -45,5 +52,15 @@ public class Hall {
 
     public void setH_capacity(int h_capacity) {
         this.h_capacity = h_capacity;
+    }
+
+    @Override
+    public String toString() {
+        return "Hall{" +
+                "场厅编号=" + h_id +
+                ", 场厅名称='" + h_name + '\'' +
+                ", 场厅所属影院=" + h_cinema +
+                ", 场厅容量=" + h_capacity +
+                '}';
     }
 }

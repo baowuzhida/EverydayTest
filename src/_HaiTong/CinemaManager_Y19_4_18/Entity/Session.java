@@ -89,4 +89,18 @@ public class Session {
     public void setS_h_capacity(int s_h_capacity) {
         this.s_h_capacity = s_h_capacity;
     }
+
+    @Override
+    public String toString() {
+        return "Session{" +
+                "s_id=" + s_id +
+                ", s_cinema=" + s_cinema +
+                ", s_hall=" + s_hall +
+                ", s_movie=" + s_movie +
+                ", s_startTime=" + s_startTime +
+                ", s_overTime=" + s_overTime +
+                ", s_price=" + s_price +
+                ", s_h_capacity=" + s_h_capacity +
+                '}';
+    }
 }

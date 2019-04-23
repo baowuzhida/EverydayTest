@@ -1,8 +1,8 @@
 package _HaiTong.CinemaManager_Y19_4_18.View;
 
+import _HaiTong.CinemaManager_Y19_4_18.Biz.BizImpl.CinemaBizImpl;
 import _HaiTong.CinemaManager_Y19_4_18.Biz.CinemaBiz;
 import _HaiTong.CinemaManager_Y19_4_18.Entity.Cinema;
-import _HaiTong.CinemaManager_Y19_4_18.Entity.Movie;
 import _HaiTong.CinemaManager_Y19_4_18.Util.InputUtil;
 
 import java.util.ArrayList;
@@ -15,12 +15,16 @@ public class CinemaControl {
     private CinemaBiz cinemaBiz;
 
     public void cinemaControl() throws Exception {
+        cinemaBiz = new CinemaBizImpl();
         scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("请选择操作：");
-            System.out.println("1.添加影院 2.影院查询 3.修改影院 4.删除影院 5.返回");
+            System.out.println("\n\n\n\n  请选择操作：");
+            System.out.println("0.厂厅管理 1.添加影院 2.影院查询 3.修改影院 4.删除影院 5.返回");
             int choose = InputUtil.getInputByInt(scanner);
             switch (choose) {
+                case 0:
+                    hallControl();
+                    break;
                 case 1:
                     addCinema();
                     break;
@@ -42,11 +46,28 @@ public class CinemaControl {
 
     }
 
-    private void addCinema()throws Exception {
+    private void hallControl() throws Exception {
+        List<Cinema> cinemas = new ArrayList<>();
+        cinemas = cinemaBiz.selectCinema();
+        if (cinemas != null) {
+            cinemas.forEach(System.out::println);
+            System.out.println("请输入要管理厂厅的影院编号：");
+            int id = InputUtil.getInputByInt(scanner);
+            if (!cinemaBiz.findCinemabyId(id)) {
+                System.out.println("影院编号不存在！返回上一级！");
+                return;
+            } else
+                new HallControl().hallControl(id);
+        } else
+            System.out.println("暂无影院信息!无法管理厂厅！");
+
+    }
+
+    private void addCinema() throws Exception {
         scanner = new Scanner(System.in);
         List<Cinema> cinemas = new ArrayList<>();
         while (true) {
-            System.out.println("请输入电影名称:");
+            System.out.println("请输入影院名称:");
             String name = InputUtil.getInputByString(scanner);
             System.out.println("请输入影院地址:");
             String address = InputUtil.getInputByString(scanner);
@@ -69,7 +90,7 @@ public class CinemaControl {
 
     }
 
-    private void selectCinema()throws Exception {
+    private void selectCinema() throws Exception {
         List<Cinema> cinemas = new ArrayList<>();
         cinemas = cinemaBiz.selectCinema();
         if (cinemas != null)
@@ -88,10 +109,10 @@ public class CinemaControl {
             System.out.println("请输入需要更新的影院编号：");
             int id = InputUtil.getInputByInt(scanner);
             if (!cinemaBiz.findCinemabyId(id)) {
-                System.out.println("电影编号不存在！返回上一级！");
+                System.out.println("影院编号不存在！返回上一级！");
                 return;
             }
-            System.out.println("请输入电影名称：(不更改输入-1）");
+            System.out.println("请输入影院名称：(不更改输入-1）");
             String name = InputUtil.getInputByString(scanner);
             System.out.println("请输入影院地址：(不更改输入-1）");
             String address = InputUtil.getInputByString(scanner);
@@ -114,7 +135,7 @@ public class CinemaControl {
 
     }
 
-    private void deleteCinema()throws Exception {
+    private void deleteCinema() throws Exception {
         scanner = new Scanner(System.in);
         System.out.println("当前有如下影院：");
         selectCinema();

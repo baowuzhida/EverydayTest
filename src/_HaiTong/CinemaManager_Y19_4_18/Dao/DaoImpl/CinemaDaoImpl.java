@@ -66,11 +66,11 @@ public class CinemaDaoImpl implements CinemaDao {
             } else {
                 sqlbuilder.append(" c_name = c_name ");
             }
-            if (c.getC_address().equals("-1")) {
+            if (!c.getC_address().equals("-1")) {
                 sqlbuilder.append(" ,c_address = ? ");
                 list.add(c.getC_address());
             }
-            if (c.getC_info().equals("-1")) {
+            if (!c.getC_info().equals("-1")) {
                 sqlbuilder.append(" ,c_info = ? ");
                 list.add(c.getC_info());
             }

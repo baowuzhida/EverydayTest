@@ -35,6 +35,7 @@ public class CinemaBizImpl implements CinemaBiz {
 
     @Override
     public boolean findCinemabyId(int c_id) throws Exception {
-        return false;
+
+        return cinemaDao.findCinemabyId(c_id);
     }
 }
