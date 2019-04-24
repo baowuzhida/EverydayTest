@@ -4,10 +4,7 @@ import org.json.JSONArray;
 
 import java.lang.reflect.Field;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class BaseDao {
@@ -111,11 +108,11 @@ public class BaseDao {
         return data;
     }
 
-    public static <T> List<Map<Object, Object>> executeQueryNocls(String sql, List<Object> params) {
+    public static <T> List<LinkedHashMap<Object, Object>> executeQueryNocls(String sql, List<Object> params) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        List<Map<Object, Object>> data = new ArrayList<>();
+        List<LinkedHashMap<Object, Object>> data = new ArrayList<>();
 
         try {
             conn = getConnection();
@@ -129,7 +126,7 @@ public class BaseDao {
             ResultSetMetaData rsd = rs.getMetaData();
 
             while (rs.next()) {
-                Map<Object, Object> map = new HashMap<>();
+                LinkedHashMap<Object, Object> map = new LinkedHashMap<>();
                 for (int i = 0; i < rsd.getColumnCount(); i++) {
                     String col_name = rsd.getColumnName(i + 1);
                     Object value = rs.getObject(col_name);

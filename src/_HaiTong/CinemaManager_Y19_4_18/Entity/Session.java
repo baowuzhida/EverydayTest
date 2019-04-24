@@ -8,22 +8,44 @@ public class Session {
     private int s_cinema;
     private int s_hall;
     private int s_movie;
-    private Time s_startTime;
-    private Time s_overTime;
+    private Date s_startTime;
+    private Date s_endTime;
+    private int s_m_duration;
     private double s_price;
-    private int s_h_capacity;
+    private int s_h_capacity;//剩余票数量
 
     public Session() {
     }
 
-    public Session(int s_cinema, int s_hall, int s_movie, Time s_startTime, Time s_overTime, double s_price, int s_h_capacity) {
+    public Session(int s_cinema, int s_hall, int s_movie, Date s_startTime, Date s_endTime, int s_m_duration, double s_price, int s_h_capacity) {
         this.s_cinema = s_cinema;
         this.s_hall = s_hall;
         this.s_movie = s_movie;
         this.s_startTime = s_startTime;
-        this.s_overTime = s_overTime;
+        this.s_endTime = s_endTime;
+        this.s_m_duration = s_m_duration;
         this.s_price = s_price;
         this.s_h_capacity = s_h_capacity;
+    }
+
+    public Session(int s_id, int s_cinema, int s_hall, int s_movie, Date s_startTime, Date s_endTime, int s_m_duration, double s_price, int s_h_capacity) {
+        this.s_id = s_id;
+        this.s_cinema = s_cinema;
+        this.s_hall = s_hall;
+        this.s_movie = s_movie;
+        this.s_startTime = s_startTime;
+        this.s_endTime = s_endTime;
+        this.s_m_duration = s_m_duration;
+        this.s_price = s_price;
+        this.s_h_capacity = s_h_capacity;
+    }
+
+    public Date getS_endTime() {
+        return s_endTime;
+    }
+
+    public void setS_endTime(Date s_endTime) {
+        this.s_endTime = s_endTime;
     }
 
     public int getS_id() {
@@ -58,20 +80,20 @@ public class Session {
         this.s_movie = s_movie;
     }
 
-    public Time getS_startTime() {
+    public Date getS_startTime() {
         return s_startTime;
     }
 
-    public void setS_startTime(Time s_startTime) {
+    public void setS_startTime(Date s_startTime) {
         this.s_startTime = s_startTime;
     }
 
-    public Time getS_overTime() {
-        return s_overTime;
+    public int getS_m_duration() {
+        return s_m_duration;
     }
 
-    public void setS_overTime(Time s_overTime) {
-        this.s_overTime = s_overTime;
+    public void setS_m_duration(int s_m_duration) {
+        this.s_m_duration = s_m_duration;
     }
 
     public double getS_price() {
@@ -93,14 +115,15 @@ public class Session {
     @Override
     public String toString() {
         return "Session{" +
-                "s_id=" + s_id +
-                ", s_cinema=" + s_cinema +
-                ", s_hall=" + s_hall +
-                ", s_movie=" + s_movie +
-                ", s_startTime=" + s_startTime +
-                ", s_overTime=" + s_overTime +
-                ", s_price=" + s_price +
-                ", s_h_capacity=" + s_h_capacity +
+                "场次编号=" + s_id +
+                ", 所属影院=" + s_cinema +
+                ", 所属厂厅=" + s_hall +
+                ", 所属电影=" + s_movie +
+                ", 开始时间=" + s_startTime +
+                ", 结束时间=" + s_endTime +
+                ", 持续时间=" + s_m_duration +
+                ", 影票价格=" + s_price +
+                ", 剩余票数=" + s_h_capacity +
                 '}';
     }
 }

@@ -14,5 +14,5 @@ public interface MovieBiz {
 
     boolean updateMovie(List<Movie> movies) throws  Exception;
 
-    boolean findMoviebyId(int m_id) throws Exception;
+    Movie findMoviebyId(int m_id) throws Exception;
 }

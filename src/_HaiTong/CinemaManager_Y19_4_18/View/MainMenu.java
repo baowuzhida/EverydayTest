@@ -1,7 +1,9 @@
 package _HaiTong.CinemaManager_Y19_4_18.View;
 
+import _HaiTong.CinemaManager_Y19_4_18.Biz.AdminBiz;
 import _HaiTong.CinemaManager_Y19_4_18.Biz.BizImpl.AdminBizImpl;
 import _HaiTong.CinemaManager_Y19_4_18.Biz.BizImpl.UserBizImpl;
+import _HaiTong.CinemaManager_Y19_4_18.Biz.UserBiz;
 import _HaiTong.CinemaManager_Y19_4_18.Util.GlobalUtil;
 import _HaiTong.CinemaManager_Y19_4_18.Util.InputUtil;
 
@@ -11,8 +13,11 @@ import java.util.Scanner;
 public class MainMenu {
 
     private Scanner scanner;
+    private UserBiz userBiz;
+    private AdminBiz adminBiz;
 
     public void mainMenu() throws Exception {
+        userBiz = new UserBizImpl();
         while (true) {
             scanner = new Scanner(System.in);
             System.out.println("欢迎来到电影院管理系统");
@@ -44,13 +49,23 @@ public class MainMenu {
             String name = InputUtil.getInputByString(scanner);
             System.out.println("请输入密码：");
             String password = InputUtil.getInputByString(scanner);
-            boolean bol = new UserBizImpl().userRegister(name, password);
-            if (bol) {
-                System.out.println("注册成功");
-                System.out.println("\n\n\n\n\n\n\n");
-                return;
-            } else {//注册失败
-                System.out.println("你输入的用户名已存在，请重新输入");
+            String captcha = new GlobalUtil().getRandomString(4);
+            System.out.println("请输入验证码：" + captcha);
+            String str = InputUtil.getInputByString(scanner);
+            if (str.equals(captcha)) {
+                boolean bol = userBiz.userRegister(name, password);
+                if (bol) {
+                    System.out.println("注册成功");
+                    System.out.println("\n\n\n\n\n\n\n");
+                    return;
+                } else {//注册失败
+                    System.out.println("你输入的用户名已存在，请重新输入");
+                }
+            } else {
+                System.out.println("验证码错误，是否重试？");
+                System.out.println("1.是  Other。否");
+                if (InputUtil.getInputByInt(scanner) != 1)
+                    return;
             }
         }
 
@@ -64,7 +79,7 @@ public class MainMenu {
             System.out.println("请输入密码：");
             String password = scanner.nextLine();
 
-            boolean bol = new UserBizImpl().userLogin(name, password);
+            boolean bol = userBiz.userLogin(name, password);
             if (bol) {
                 System.out.println("登录成功");
                 System.out.println("\n\n\n\n\n\n\n");
@@ -97,7 +112,7 @@ public class MainMenu {
             String number = InputUtil.getInputByString(scanner);
             System.out.println("请输入管理员密码：");
             String password = InputUtil.getInputByString(scanner);
-            boolean bol = new AdminBizImpl().adminLogin(number, password);
+            boolean bol = adminBiz.adminLogin(number, password);
             if (bol) {
                 System.out.println("登录成功");
                 System.out.println("\n\n\n\n\n\n\n");

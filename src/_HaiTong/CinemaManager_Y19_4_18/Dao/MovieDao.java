@@ -8,7 +8,7 @@ public interface MovieDao {
 
     List<Movie> selectMovie() throws Exception;
 
-    boolean findMoviebyId(int m_id) throws Exception;
+    Movie findMoviebyId(int m_id) throws Exception;
 
     boolean addMovie(List<Movie> movies) throws Exception;
 

@@ -5,6 +5,9 @@ import _HaiTong.CinemaManager_Y19_4_18.Dao.DaoImpl.UserDaoImpl;
 import _HaiTong.CinemaManager_Y19_4_18.Dao.UserDao;
 import _HaiTong.CinemaManager_Y19_4_18.Entity.User;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+
 public class UserBizImpl implements UserBiz {
 
     private UserDao userDao = new UserDaoImpl();
@@ -33,5 +36,10 @@ public class UserBizImpl implements UserBiz {
         else {
             return userDao.loginUser(name, password);
         }
+    }
+
+    @Override
+    public List<LinkedHashMap<Object, Object>> selectSessionForUser(int m_id) throws Exception {
+        return userDao.selectSessionForUser(m_id);
     }
 }

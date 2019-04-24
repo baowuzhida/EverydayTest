@@ -36,7 +36,7 @@ public class MovieBizImpl implements MovieBiz {
     }
 
     @Override
-    public boolean findMoviebyId(int m_id) throws Exception {
+    public Movie findMoviebyId(int m_id) throws Exception {
         return movieDao.findMoviebyId(m_id);
     }
 }

@@ -25,16 +25,16 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public boolean findMoviebyId(int m_id) throws Exception {
+    public Movie findMoviebyId(int m_id) throws Exception {
         String sql = "select * from dvd_movie where m_id = ?";
         List<Object> list = new ArrayList<>();
         list.add(m_id);
         Class<Movie> cls = Movie.class;
         List<Movie> movies = executeQuery(sql, list, cls);
         if (movies.size() == 0) {
-            return false;
+            return null;
         }
-        return true;
+        return movies.get(0);
     }
 
     @Override

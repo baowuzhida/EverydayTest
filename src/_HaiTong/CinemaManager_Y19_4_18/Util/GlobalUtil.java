@@ -36,4 +36,15 @@ public class GlobalUtil {
         userinfo.clear();
         return true;
     }
+
+    public  String getRandomString(int length) {
+        //随机字符串的随机字符库
+        String KeyString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuffer sb = new StringBuffer();
+        int len = KeyString.length();
+        for (int i = 0; i < length; i++) {
+            sb.append(KeyString.charAt((int) Math.round(Math.random() * (len - 1))));
+        }
+        return sb.toString();
+    }
 }

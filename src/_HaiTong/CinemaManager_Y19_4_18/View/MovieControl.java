@@ -50,7 +50,7 @@ public class MovieControl {
             selectMovie();
             System.out.println("请输入需要更新的电影编号：");
             int id = InputUtil.getInputByInt(scanner);
-            if (!movieBiz.findMoviebyId(id)) {
+            if (movieBiz.findMoviebyId(id)==null) {
                 System.out.println("电影编号不存在！返回上一级！");
                 return;
             }
@@ -84,7 +84,7 @@ public class MovieControl {
         selectMovie();
         System.out.println("请输入需要删除的电影编号(输入-1清空）：");
         int id = InputUtil.getInputByInt(scanner);
-        if (!movieBiz.findMoviebyId(id) && id != -1) {
+        if (movieBiz.findMoviebyId(id)==null && id != -1) {
             System.out.println("电影编号不存在！返回上一级！");
             return;
         }
@@ -105,7 +105,6 @@ public class MovieControl {
                 System.out.println("删除失败！");
             }
         }
-
 
     }
 
