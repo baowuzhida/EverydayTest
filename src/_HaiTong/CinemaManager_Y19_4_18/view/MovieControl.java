@@ -47,7 +47,9 @@ public class MovieControl {
         List<Movie> movies = new ArrayList<>();
         while (true) {
             System.out.println("\n\n\n\n 当前列表有如下电影：");
-            selectMovie();
+            if(selectMovie()==2){
+                return;
+            }
             System.out.println("请输入需要更新的电影编号：");
             int id = InputUtil.getInputByInt(scanner);
             if (movieBiz.findMoviebyId(id)==null) {
@@ -81,7 +83,9 @@ public class MovieControl {
     private void deleteMovie() throws Exception {
         scanner = new Scanner(System.in);
         System.out.println("当前有如下电影：");
-        selectMovie();
+        if(selectMovie()==2){
+            return;
+        }
         System.out.println("请输入需要删除的电影编号(输入-1清空）：");
         int id = InputUtil.getInputByInt(scanner);
         if (movieBiz.findMoviebyId(id)==null && id != -1) {
@@ -108,13 +112,18 @@ public class MovieControl {
 
     }
 
-    private void selectMovie() throws Exception {
+    private int selectMovie() throws Exception {
         List<Movie> movies = new ArrayList<>();
         movies = movieBiz.selectMovie();
-        if (movies != null)
+        if (movies != null) {
             movies.forEach(System.out::println);
-        else
+            return 1;
+        }
+        else {
             System.out.println("暂无电影信息!");
+            return 2;
+        }
+
     }
 
     private void addMovie() throws Exception {

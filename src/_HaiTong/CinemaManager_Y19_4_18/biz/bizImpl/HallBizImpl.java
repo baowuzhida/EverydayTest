@@ -17,6 +17,11 @@ public class HallBizImpl implements HallBiz {
     }
 
     @Override
+    public List<Hall> findHallbyCid(int c_id) throws Exception {
+        return hallDao.findHallbyCid(c_id);
+    }
+
+    @Override
     public boolean addHall(List<Hall> halls) throws Exception {
         return hallDao.addHall(halls);
     }
@@ -37,5 +42,10 @@ public class HallBizImpl implements HallBiz {
     @Override
     public boolean findHallbyId(int h_id) throws Exception {
         return hallDao.findHallbyId(h_id);
+    }
+
+    @Override
+    public boolean findHallbyIdCid(int h_id, int c_id) throws Exception {
+        return hallDao.findHallbyIdCid(h_id,c_id);
     }
 }

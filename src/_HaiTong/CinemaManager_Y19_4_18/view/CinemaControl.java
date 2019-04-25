@@ -90,13 +90,16 @@ public class CinemaControl {
 
     }
 
-    private void selectCinema() throws Exception {
+    private int selectCinema() throws Exception {
         List<Cinema> cinemas = new ArrayList<>();
         cinemas = cinemaBiz.selectCinema();
-        if (cinemas != null)
+        if (cinemas != null) {
             cinemas.forEach(System.out::println);
-        else
+            return 1;
+        } else {
             System.out.println("暂无影院信息!");
+            return 2;
+        }
     }
 
     private void updateCinema() throws Exception {
@@ -105,7 +108,8 @@ public class CinemaControl {
         List<Cinema> cinemas = new ArrayList<>();
         while (true) {
             System.out.println("\n\n\n\n 当前列表有如下影院：");
-            selectCinema();
+            if(selectCinema()==2)
+                return;
             System.out.println("请输入需要更新的影院编号：");
             int id = InputUtil.getInputByInt(scanner);
             if (!cinemaBiz.findCinemabyId(id)) {
@@ -138,7 +142,8 @@ public class CinemaControl {
     private void deleteCinema() throws Exception {
         scanner = new Scanner(System.in);
         System.out.println("当前有如下影院：");
-        selectCinema();
+        if(selectCinema()==2)
+            return;
         System.out.println("请输入需要删除的影院编号(输入-1清空）：");
         int id = InputUtil.getInputByInt(scanner);
         if (!cinemaBiz.findCinemabyId(id) && id != -1) {

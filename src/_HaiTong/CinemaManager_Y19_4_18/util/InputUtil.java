@@ -81,7 +81,7 @@ public class InputUtil {
             input = new Scanner(System.in);
             try {
                 String i = input.nextLine();//捕获输入其他不同的类型值
-                if(new TimeUtil().isValidDate(i))
+                if (new TimeUtil().isValidDate(i))
                     return i;
                 else
                     throw new InputMismatchException();
@@ -99,7 +99,7 @@ public class InputUtil {
             input = new Scanner(System.in);
             try {
                 int i = input.nextInt();//捕获输入其他不同的类型值
-                if(i > 0 && i <=capacity && !map.get(i).equals("*"))
+                if (i > 0 && i <= capacity && !map.get(i).equals("*"))
                     return i;
                 else
                     throw new Exception();
@@ -107,6 +107,24 @@ public class InputUtil {
                 System.out.println("输入类型错误！请重新输入：");
             } catch (Exception e) {
                 System.out.println("请输入在范围内或未售出的座位号！请重新输入：");
+            }
+        }
+    }
+
+    public static int getInputByReCharge(Scanner input) {
+        while (true) {
+            input = new Scanner(System.in);
+            try {
+
+                int i = input.nextInt();//捕获输入其他不同的类型值
+                if (i >1000 || i == -1)
+                    return i;
+                else
+                    throw  new Exception();
+            } catch (InputMismatchException e) {
+                System.out.println("输入类型错误！请重新输入：");
+            } catch (Exception e) {
+                System.out.println("请输入1000以上的数值，或输入-1取消");
             }
         }
     }

@@ -9,6 +9,8 @@ public interface HallBiz {
 
     List<Hall> selectHall() throws Exception;
 
+    List<Hall> findHallbyCid(int c_id) throws  Exception;
+
     boolean addHall(List<Hall> halls) throws Exception;
 
     boolean delHall(int h_id) throws Exception;
@@ -16,4 +18,6 @@ public interface HallBiz {
     boolean updateHall(List<Hall> halls) throws Exception;
 
     boolean findHallbyId(int h_id) throws Exception;
+
+    boolean findHallbyIdCid(int h_id,int c_id) throws Exception;
 }

@@ -40,14 +40,15 @@ public class MovieDaoImpl implements MovieDao {
     @Override
     public boolean addMovie(List<Movie> movies) throws Exception {
         for (Movie m : movies) {
-            String sql = "insert into dvd_movie (m_name,m_duration,m_type,m_info) values (?,?,?,?)";
+            String sql = "insert into dvd_movie (m_name,m_duration,m_type,m_info) values (?,?,?,?)";//创建boxoffice用触发器生成
             List<Object> list = new ArrayList<>();
             list.add(m.getM_name());
             list.add(m.getM_duration());
             list.add(m.getM_type());
             list.add(m.getM_info());
-            if (!excuteUpdate(sql, list))
+            if (!excuteUpdate(sql, list)) {
                 return false;
+            }
         }
         return true;
     }

@@ -46,7 +46,7 @@ public class SessionDaoImpl implements SessionDao {
             list.add(s.getS_movie());
             list.add(s.getS_startTime());
             list.add(s.getS_endTime());
-            list.add(s.getS_cinema());
+            list.add(s.getS_m_duration());
             list.add(s.getS_price());
             list.add(s.getS_hall());
             if (!excuteUpdate(sql, list))

@@ -23,6 +23,19 @@ public class HallDaoImpl implements HallDao {
     }
 
     @Override
+    public List<Hall> findHallbyCid(int c_id) throws Exception {
+        String sql = "select * from dvd_hall where h_cinema = ?";
+        List<Object> list = new ArrayList<>();
+        list.add(c_id);
+        Class<Hall> cls = Hall.class;
+        List<Hall> halls = executeQuery(sql, list, cls);
+        if (halls.size() == 0) {
+            return null;
+        }
+        return halls;
+    }
+
+    @Override
     public boolean addHall(List<Hall> halls) throws Exception {
         for (Hall h : halls) {
             String sql = "insert into dvd_hall (h_name,h_cinema,h_capacity) values (?,?,?)";
@@ -88,6 +101,20 @@ public class HallDaoImpl implements HallDao {
         String sql = "select * from dvd_hall where h_id = ?";
         List<Object> list = new ArrayList<>();
         list.add(h_id);
+        Class<Hall> cls = Hall.class;
+        List<Hall> halls = executeQuery(sql, list, cls);
+        if (halls.size() == 0) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean findHallbyIdCid(int h_id, int c_id) throws Exception {
+        String sql = "select * from dvd_hall where h_id = ? and h_cinema = ?";
+        List<Object> list = new ArrayList<>();
+        list.add(h_id);
+        list.add(c_id);
         Class<Hall> cls = Hall.class;
         List<Hall> halls = executeQuery(sql, list, cls);
         if (halls.size() == 0) {

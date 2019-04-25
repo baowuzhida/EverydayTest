@@ -70,20 +70,27 @@ public class HallControl {
         }
 
     }
-    private void selectHall() throws Exception {
+
+    private int selectHall() throws Exception {
         List<Hall> halls = new ArrayList<>();
         halls = hallBiz.selectHall();
-        if (halls != null)
+        if (halls != null) {
             halls.forEach(System.out::println);
-        else
+            return 1;
+        }
+        else {
             System.out.println("暂无厂厅信息!");
+            return 2;
+        }
     }
+
     private void updateHall() throws Exception {
         scanner = new Scanner(System.in);
         List<Hall> halls = new ArrayList<>();
         while (true) {
             System.out.println("\n\n\n\n 当前列表有如下厂厅：");
-            selectHall();
+            if(selectHall()==2)
+                return;
             System.out.println("请输入需要更新的厂厅编号：");
             int id = InputUtil.getInputByInt(scanner);
             if (!hallBiz.findHallbyId(id)) {
@@ -110,10 +117,12 @@ public class HallControl {
             System.out.println("更新失败！");
         }
     }
+
     private void deleteHall() throws Exception {
         scanner = new Scanner(System.in);
         System.out.println("当前有如下厂厅：");
-        selectHall();
+        if(selectHall()==2)
+            return;
         System.out.println("请输入需要删除的厂厅编号(输入-1清空）：");
         int id = InputUtil.getInputByInt(scanner);
         if (!hallBiz.findHallbyId(id) && id != -1) {

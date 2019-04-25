@@ -1,6 +1,7 @@
 package _HaiTong.CinemaManager_Y19_4_18.view;
 
 import _HaiTong.CinemaManager_Y19_4_18.biz.AdminBiz;
+import _HaiTong.CinemaManager_Y19_4_18.biz.bizImpl.AdminBizImpl;
 import _HaiTong.CinemaManager_Y19_4_18.biz.bizImpl.UserBizImpl;
 import _HaiTong.CinemaManager_Y19_4_18.biz.UserBiz;
 import _HaiTong.CinemaManager_Y19_4_18.util.GlobalUtil;
@@ -16,6 +17,7 @@ public class MainMenu {
 
     public void mainMenu() throws Exception {
         userBiz = new UserBizImpl();
+        adminBiz = new AdminBizImpl();
         while (true) {
             scanner = new Scanner(System.in);
             System.out.println("欢迎来到电影院管理系统");

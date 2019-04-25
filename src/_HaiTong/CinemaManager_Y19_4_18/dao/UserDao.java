@@ -14,6 +14,10 @@ public interface UserDao {
 
     Integer getCapacityByShid(int s_hall) throws Exception;
 
+    Boolean userChangePassword(String new_password) throws Exception;
+
+    Boolean userRecharge(int account,int ifvip) throws Exception;
+
     Boolean registUser(String name,String password) throws Exception;
 
     Boolean loginUser(String name,String password) throws  Exception;

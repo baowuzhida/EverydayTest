@@ -48,8 +48,10 @@ public class UserMenu {
                 case 4:
                     break;
                 case 5:
+                    changePassword();
                     break;
                 case 6:
+                    seeUserInfo();
                     break;
                 case 7:
                     globalUtil.clearUserInfo();
@@ -60,28 +62,85 @@ public class UserMenu {
         }
     }
 
+
+    /*
+     * 查看个人信息
+     * */
+    private void seeUserInfo() throws Exception {
+        System.out.println("\n您当前个人信息如下：");
+        System.out.println("用户名称： " + userinfo.getU_name());
+        if (userinfo.getU_type() == 1)
+            System.out.println("用户级别： VIP会员");
+        else
+            System.out.println("用户级别： 普通会员");
+        System.out.println("账户余额： " + userinfo.getU_account());
+
+        System.out.println("输入任意键返回~: ");
+        String choose = InputUtil.getInputByString(scanner);
+    }
+
+    /*
+     * 修改密码
+     * */
+    private void changePassword() throws Exception {
+        System.out.println("请先输入原密码：");
+        String oldPassword = InputUtil.getInputByString(scanner);
+        System.out.println("请先输入新密码：");
+        String newPassword = InputUtil.getInputByString(scanner);
+        System.out.println("请再次输入新密码：");
+        String reNewPassword = InputUtil.getInputByString(scanner);
+        int i = userBiz.userChangePassword(oldPassword, newPassword, reNewPassword);
+        switch (i) {
+            case 1:
+                System.out.println("修改成功！");
+                break;
+            case 2:
+                System.out.println("原密码输入错误！");
+                break;
+            case 3:
+                System.out.println("两次新密码不一致！");
+                break;
+            case 4:
+                System.out.println("修改失败！");
+                break;
+            default:
+                System.out.println("未知错误！");
+        }
+    }
+
     /*
      * 充值
      * */
     private void reCharge() throws Exception {
         while (true) {
-            System.out.println("当前余额为：" + userinfo.getU_account());
-            System.out.println("请选择充值数额：");
+            System.out.println("\n当前余额为：" + userinfo.getU_account());
+            System.out.println("请选择充值数额：(一次充值1000及以上送VIP~)");
             System.out.println("1.【50】  2.【100】 3.【200】 4.【500】 5.【1000】 6.自定义（大于1000）Other.返回");
             int choose = InputUtil.getInputByInt(scanner);
             switch (choose) {
                 case 1:
-                    break;
+                    doReCharge(50);
+                    return;
                 case 2:
-                    break;
+                    doReCharge(100);
+                    return;
                 case 3:
-                    break;
+                    doReCharge(200);
+                    return;
                 case 4:
-                    break;
+                    doReCharge(500);
+                    return;
                 case 5:
-                    break;
+                    doReCharge(1000);
+                    return;
                 case 6:
-                    break;
+                    System.out.println("请输入要充值的数额：");
+                    int recharge = InputUtil.getInputByReCharge(scanner);
+                    if (recharge == -1)
+                        return;
+                    else
+                        doReCharge(recharge);
+                    return;
                 default:
                     return;
             }
@@ -90,11 +149,22 @@ public class UserMenu {
     }
 
     /*
+     * 充值方法调用
+     * */
+    private void doReCharge(int i) throws Exception {
+        if (userBiz.userRecharge(i))
+            System.out.println("充值成功！");
+        else
+            System.out.println("充值失败！");
+    }
+
+    /*
      *购买电影票主程序
      * */
     private void buyMovieTicket() throws Exception {
-        selectMovie();
-        System.out.println("请选择想看的电影编号：");
+        if(selectMovie()==2)
+            return;
+        System.out.println("\n请选择想看的电影编号：");
         int m_id = InputUtil.getInputByInt(scanner);
         if (movieBiz.findMoviebyId(m_id) == null) {
             System.out.println("电影id不存在 返回首页！");
@@ -143,14 +213,17 @@ public class UserMenu {
     /*
      * 查询电影信息
      * */
-    private void selectMovie() throws Exception {
+    private int selectMovie() throws Exception {
         List<Movie> movies = new ArrayList<>();
         movies = movieBiz.selectMovie();
         if (movies != null) {
             System.out.println("当前热映电影信息如下：");
             movies.forEach(System.out::println);
-        } else
+            return 1;
+        } else {
             System.out.println("暂无电影信息!");
+            return 2;
+        }
     }
 
     /*
@@ -159,7 +232,7 @@ public class UserMenu {
     private List<Cinema> selectCinemaForUser(int m_id) throws Exception {
         List<Cinema> cinemas = userBiz.selectCinemaFromMid(m_id);
         if (cinemas != null) {
-            System.out.println("当前放映此电影影厅如下：");
+            System.out.println("\n当前放映此电影影厅如下：");
             cinemas.forEach(System.out::println);
             return cinemas;
         } else
@@ -235,7 +308,7 @@ public class UserMenu {
 
         List<LinkedHashMap<Object, Object>> ticketsList = userBiz.selectTicketFromUid(userinfo.getU_id());
         if (ticketsList != null) {
-            System.out.println("当前已购买影票信息如下");
+            System.out.println("\n当前已购买影票信息如下");
             System.out.println("\n\n\n | 影票编号 | 用户编号 | 场次编号 | 座位编号 | 影院名称 | 场厅名称 | 电影名称 | 电影价格 | ");
             for (LinkedHashMap<Object, Object> map : ticketsList) {
                 for (Object key : map.keySet()) {//keySet获取map集合key的集合  然后在遍历key即可

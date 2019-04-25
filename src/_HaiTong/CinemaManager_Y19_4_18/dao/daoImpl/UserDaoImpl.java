@@ -12,7 +12,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
 
     private GlobalUtil globalUtil = new GlobalUtil();
-    private User user ;
+    private User userInfo;
 
     @Override
     public User resarchByName(String name) throws Exception {
@@ -38,6 +38,43 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             return null;
         }
         return halls.get(0).getH_capacity();
+    }
+
+    @Override
+    public Boolean userChangePassword(String new_password) throws Exception {
+        userInfo = globalUtil.getUserInfo();
+        String sql = "UPDATE dvd_user SET u_password = ? WHERE u_id = ? ";
+        List<Object> list = new ArrayList<>();
+        list.add(new_password);
+        list.add(userInfo.getU_id());
+
+        if (excuteUpdate(sql, list)) {
+            loginUser(userInfo.getU_name(), userInfo.getU_password());
+            return true;
+        } else
+            return false;
+    }
+
+    @Override
+    public Boolean userRecharge(int account, int ifvip) throws Exception {
+        userInfo = globalUtil.getUserInfo();
+        List<Object> list = new ArrayList<>();
+        StringBuilder sqlbuilder = new StringBuilder();
+        sqlbuilder.append("UPDATE dvd_user SET u_account = u_account + ? , ");
+        list.add(account);
+        if (ifvip == 1) {
+            sqlbuilder.append(" u_type = ? ");
+            list.add(ifvip);
+        } else
+            sqlbuilder.append(" u_type = u_type ");
+        sqlbuilder.append(" WHERE u_id = ? ");
+        list.add(userInfo.getU_id());
+        String sql = sqlbuilder.toString();
+        if (excuteUpdate(sql, list)) {
+            loginUser(userInfo.getU_name(), userInfo.getU_password());
+            return true;
+        } else
+            return false;
     }
 
     @Override
@@ -67,6 +104,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
     @Override
     public Boolean userBuyTicket(int u_id, Session session, double after_account, int seat) throws Exception {
+        userInfo = globalUtil.getUserInfo();
         String sql1 = "INSERT into dvd_ticket (t_user,t_session,t_seat,t_cinema,t_hall,t_movie,t_price) values (?,?,?,?,?,?,?)";
         List<Object> list1 = new ArrayList<>();
         list1.add(u_id);
@@ -77,13 +115,15 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         list1.add(session.getS_movie());
         list1.add(session.getS_price());
         if (excuteUpdate(sql1, list1)) {
-            String sql2 = "UPDATE dvd_user,dvd_session SET u_account = ? , s_h_capacity = s_h_capacity - 1  WHERE u_id = ? AND s_id = ?";
+            String sql2 = "UPDATE dvd_boxoffice, dvd_user,dvd_session SET u_account = ? , s_h_capacity = s_h_capacity - 1 ,b_ticketsum = b_ticketsum + 1 ,b_sumearning = b_sumearning + ?  " +
+                    "WHERE u_id = ? AND s_id = ? AND b_movie = ?";
             List<Object> list2 = new ArrayList<>();
             list2.add(after_account);
+            list2.add(session.getS_price());
             list2.add(u_id);
             list2.add(session.getS_id());
-            user = globalUtil.getUserInfo();
-            if (excuteUpdate(sql2, list2) && loginUser(user.getU_name(),user.getU_password())) {
+            list2.add(session.getS_movie());
+            if (excuteUpdate(sql2, list2) && loginUser(userInfo.getU_name(), userInfo.getU_password())) {
                 return true;
             } else
                 return false;
@@ -147,7 +187,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     }
 
     @Override
-    public  List<LinkedHashMap<Object, Object>> selectTicketFromUid(int u_id) throws Exception {
+    public List<LinkedHashMap<Object, Object>> selectTicketFromUid(int u_id) throws Exception {
         String sql = "SELECT t_id,t_user,t_session,t_seat,c_name,h_name,m_name,t_price FROM dvd_ticket,dvd_cinema,dvd_movie,dvd_hall " +
                 "WHERE t_user = ? AND t_cinema = c_id AND t_hall = h_id AND t_movie = m_id";
         List<Object> list = new ArrayList<>();
