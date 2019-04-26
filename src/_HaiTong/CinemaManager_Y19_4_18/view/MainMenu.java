@@ -109,7 +109,7 @@ public class MainMenu {
             scanner = new Scanner(System.in);
             System.out.println("厉害！被您发现了后台！");
             System.out.println("请输入管理员账户：");
-            String number = InputUtil.getInputByString(scanner);
+            Integer number = InputUtil.getInputByInt(scanner);
             System.out.println("请输入管理员密码：");
             String password = InputUtil.getInputByString(scanner);
             boolean bol = adminBiz.adminLogin(number, password);

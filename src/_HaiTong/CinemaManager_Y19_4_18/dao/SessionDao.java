@@ -2,6 +2,7 @@ package _HaiTong.CinemaManager_Y19_4_18.dao;
 
 import _HaiTong.CinemaManager_Y19_4_18.entity.Session;
 
+import java.util.Date;
 import java.util.List;
 
 public interface SessionDao {
@@ -17,4 +18,6 @@ public interface SessionDao {
     boolean updateSession(List<Session> sessions) throws  Exception;
 
     boolean clearSession() throws Exception;
+
+    boolean selectIfConflict(int c_id, int h_id, int m_id, Date start, Date end) throws  Exception;
 }

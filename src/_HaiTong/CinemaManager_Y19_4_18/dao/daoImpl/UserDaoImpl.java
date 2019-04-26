@@ -161,6 +161,18 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     }
 
     @Override
+    public List<BoxOffice> selectHotMovie() throws Exception {
+        String sql = "SELECT * FROM dvd_boxoffice ORDER BY b_ticketsum DESC LIMIT 3";//找前三
+        List<Object> list = new ArrayList<>();
+        Class<BoxOffice> cls = BoxOffice.class;
+        List<BoxOffice> boxOffices = executeQuery(sql, list, cls);
+        if (boxOffices.size() > 0)
+            return boxOffices;
+        else
+            return null;
+    }
+
+    @Override
     public List<Cinema> selectCinemaFromMid(int m_id) throws Exception {
         String sql = "SELECT DISTINCT c_id,c_name,c_address,c_info FROM dvd_session,dvd_cinema,dvd_movie WHERE s_movie = ? AND s_cinema = c_id";
         List<Object> list = new ArrayList<>();

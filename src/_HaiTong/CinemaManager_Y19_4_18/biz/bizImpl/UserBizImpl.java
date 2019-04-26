@@ -110,6 +110,11 @@ public class UserBizImpl implements UserBiz {
     }
 
     @Override
+    public List<BoxOffice> selectHotMovie() throws Exception {
+        return userDao.selectHotMovie();
+    }
+
+    @Override
     public List<Cinema> selectCinemaFromMid(int m_id) throws Exception {
         return userDao.selectCinemaFromMid(m_id);
     }

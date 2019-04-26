@@ -92,6 +92,10 @@ public class SessionControl {
 
             Date s_startTime = TimeUtil.compareSystemTime();//输入开始时间
             Date s_endTime = TimeUtil.getEndTime(s_startTime, movie.getM_duration());//提取结束时间
+            if(sessionBiz.selectIfConflict(s_c_id,s_h_id,s_m_id,s_startTime,s_endTime)) {
+                System.out.println("该时间已存在档期！返回上一级！");
+                return;
+            }
 
             System.out.println("请输入价格：");
             double s_price = InputUtil.getInputByDouble(scanner);
@@ -165,6 +169,10 @@ public class SessionControl {
             if (ifchangeTime == 1) {
                 s_startTime = TimeUtil.compareSystemTime();//输入开始时间
                 s_endTime = TimeUtil.getEndTime(s_startTime, movie.getM_duration());//提取结束时间
+                if(sessionBiz.selectIfConflict(s_c_id,s_h_id,s_m_id,s_startTime,s_endTime)) {
+                    System.out.println("该时间已存在档期！返回上一级！");
+                    return;
+                }
             }
 
             System.out.println("请输入价格：（不修改输入-1）");

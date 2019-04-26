@@ -5,6 +5,7 @@ import _HaiTong.CinemaManager_Y19_4_18.dao.daoImpl.SessionDaoImpl;
 import _HaiTong.CinemaManager_Y19_4_18.dao.SessionDao;
 import _HaiTong.CinemaManager_Y19_4_18.entity.Session;
 
+import java.util.Date;
 import java.util.List;
 
 public class SessionBizImpl implements SessionBiz {
@@ -38,5 +39,10 @@ public class SessionBizImpl implements SessionBiz {
     @Override
     public boolean findSessionbyId(int s_id) throws Exception {
         return sessionDao.findSessionbyId(s_id);
+    }
+
+    @Override
+    public boolean selectIfConflict(int c_id, int h_id, int m_id, Date start, Date end) throws Exception {
+        return sessionDao.selectIfConflict(c_id,h_id,m_id,start,end);
     }
 }

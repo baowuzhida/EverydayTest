@@ -4,6 +4,7 @@ import _HaiTong.CinemaManager_Y19_4_18.dao.SessionDao;
 import _HaiTong.CinemaManager_Y19_4_18.entity.Session;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static _HaiTong.CinemaManager_Y19_4_18.dao.daoImpl.BaseDao.excuteUpdate;
@@ -118,6 +119,24 @@ public class SessionDaoImpl implements SessionDao {
         String sql = "truncate table dvd_session";//重置表
         List<Object> list = new ArrayList<>();
         excuteUpdate(sql, list);
+        return true;
+    }
+
+    @Override
+    public boolean selectIfConflict(int c_id, int h_id, int m_id, Date start, Date end) throws Exception {
+        String sql = "SELECT * FROM dvd_session  WHERE s_cinema = ? AND s_hall = ? AND s_movie = ? " +
+                "AND NOT ((s_startTime > ? OR s_endTime < ? ))";
+        List<Object> list = new ArrayList<>();
+        list.add(c_id);
+        list.add(h_id);
+        list.add(m_id);
+        list.add(end);
+        list.add(start);
+        Class<Session> cls = Session.class;
+        List<Session> sessions = executeQuery(sql, list, cls);
+        if (sessions.size() == 0) {
+            return false;
+        }
         return true;
     }
 }

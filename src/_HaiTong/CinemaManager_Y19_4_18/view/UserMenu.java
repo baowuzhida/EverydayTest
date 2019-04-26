@@ -46,6 +46,7 @@ public class UserMenu {
                     reCharge();
                     break;
                 case 4:
+                    guessWhatYouLike();
                     break;
                 case 5:
                     changePassword();
@@ -109,43 +110,58 @@ public class UserMenu {
     }
 
     /*
+     * 猜你喜欢
+     * */
+    private void guessWhatYouLike() throws Exception {
+        List<BoxOffice> boxOffices = new ArrayList<>();
+        boxOffices = userBiz.selectHotMovie();
+        if (boxOffices != null) {
+            System.out.println("当前热映电影信息如下：");
+            for (BoxOffice boxOffice : boxOffices) {
+                System.out.print("[电影名称]：[" + boxOffice.getB_m_name() + "]");
+                System.out.println("--[电影票房]：[" + boxOffice.getB_ticketsum() + "]");
+            }
+
+        } else {
+            System.out.println("暂无推荐信息!");
+        }
+    }
+
+    /*
      * 充值
      * */
     private void reCharge() throws Exception {
-        while (true) {
-            System.out.println("\n当前余额为：" + userinfo.getU_account());
-            System.out.println("请选择充值数额：(一次充值1000及以上送VIP~)");
-            System.out.println("1.【50】  2.【100】 3.【200】 4.【500】 5.【1000】 6.自定义（大于1000）Other.返回");
-            int choose = InputUtil.getInputByInt(scanner);
-            switch (choose) {
-                case 1:
-                    doReCharge(50);
+        System.out.println("\n当前余额为：" + userinfo.getU_account());
+        System.out.println("请选择充值数额：(一次充值1000及以上送VIP~)");
+        System.out.println("1.【50】  2.【100】 3.【200】 4.【500】 5.【1000】 6.自定义（大于1000）Other.返回");
+        int choose = InputUtil.getInputByInt(scanner);
+        switch (choose) {
+            case 1:
+                doReCharge(50);
+                return;
+            case 2:
+                doReCharge(100);
+                return;
+            case 3:
+                doReCharge(200);
+                return;
+            case 4:
+                doReCharge(500);
+                return;
+            case 5:
+                doReCharge(1000);
+                return;
+            case 6:
+                System.out.println("请输入要充值的数额：");
+                int recharge = InputUtil.getInputByReCharge(scanner);
+                if (recharge == -1)
                     return;
-                case 2:
-                    doReCharge(100);
-                    return;
-                case 3:
-                    doReCharge(200);
-                    return;
-                case 4:
-                    doReCharge(500);
-                    return;
-                case 5:
-                    doReCharge(1000);
-                    return;
-                case 6:
-                    System.out.println("请输入要充值的数额：");
-                    int recharge = InputUtil.getInputByReCharge(scanner);
-                    if (recharge == -1)
-                        return;
-                    else
-                        doReCharge(recharge);
-                    return;
-                default:
-                    return;
-            }
-
+                else
+                    doReCharge(recharge);
+                return;
+            default:
         }
+
     }
 
     /*
@@ -162,7 +178,7 @@ public class UserMenu {
      *购买电影票主程序
      * */
     private void buyMovieTicket() throws Exception {
-        if(selectMovie()==2)
+        if (selectMovie() == 2)
             return;
         System.out.println("\n请选择想看的电影编号：");
         int m_id = InputUtil.getInputByInt(scanner);

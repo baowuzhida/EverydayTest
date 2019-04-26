@@ -1,5 +1,6 @@
 package _HaiTong.CinemaManager_Y19_4_18.util;
 
+import _HaiTong.CinemaManager_Y19_4_18.entity.Admin;
 import _HaiTong.CinemaManager_Y19_4_18.entity.User;
 
 import java.util.HashMap;
@@ -8,6 +9,8 @@ import java.util.Map;
 public class GlobalUtil {
 
     private static Map<String,Object> userinfo = new HashMap<>();
+
+    private static Map<String,Object> admininfo = new HashMap<>();
 
     public User getUserInfo(){
         User user = new User();
@@ -28,6 +31,25 @@ public class GlobalUtil {
             userinfo.put("u_password", user.getU_password());
             userinfo.put("u_type", user.getU_type());
             userinfo.put("u_account", user.getU_account());
+            return true;
+        }
+    }
+
+    public Admin getAdminInfo(){
+        Admin admin = new Admin();
+        admin.setA_id((Integer)admininfo.get("a_id"));
+        admin.setA_number((Integer) admininfo.get("a_number"));
+        admin.setA_password((String) admininfo.get("a_password"));
+        return admin;
+    }
+
+    public boolean setAdminInfo(Admin admin){
+        if (admin == null)
+            return false;
+        else {
+            admininfo.put("a_id", admin.getA_id());
+            admininfo.put("a_number", admin.getA_number());
+            admininfo.put("a_password", admin.getA_password());
             return true;
         }
     }
