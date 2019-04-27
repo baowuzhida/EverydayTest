@@ -19,7 +19,7 @@ public class MovieControl {
         scanner = new Scanner(System.in);
         while (true) {
             System.out.println("\n\n\n\n  请选择操作：");
-            System.out.println("1.添加电影 2.电影查询 3.修改电影 4.删除电影 5.返回");
+            System.out.println("1.添加电影 2.电影查询 3.修改电影 4.删除电影 0.返回");
             int choose = InputUtil.getInputByInt(scanner);
             switch (choose) {
                 case 1:
@@ -34,7 +34,7 @@ public class MovieControl {
                 case 4:
                     deleteMovie();
                     break;
-                case 5:
+                case 0:
                     return;
                 default:
                     System.out.println("输入错误请重新输入");

@@ -36,7 +36,7 @@ public class SessionControl {
         scanner = new Scanner(System.in);
         while (true) {
             System.out.println("\n\n\n\n  请选择操作：");
-            System.out.println("1.添加场次 2.场次查询 3.修改场次 4.删除场次 5.返回");
+            System.out.println("1.添加场次 2.场次查询 3.修改场次 4.删除场次 0.返回");
             int choose = InputUtil.getInputByInt(scanner);
             switch (choose) {
                 case 1:
@@ -51,7 +51,7 @@ public class SessionControl {
                 case 4:
                     deleteSession();
                     break;
-                case 5:
+                case 0:
                     return;
                 default:
                     System.out.println("输入错误请重新输入");

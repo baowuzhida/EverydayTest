@@ -19,25 +19,25 @@ public class CinemaControl {
         scanner = new Scanner(System.in);
         while (true) {
             System.out.println("\n\n\n\n  请选择操作：");
-            System.out.println("0.厂厅管理 1.添加影院 2.影院查询 3.修改影院 4.删除影院 5.返回");
+            System.out.println("1.厂厅管理 2.添加影院 3.影院查询 4.修改影院 5.删除影院 0.返回");
             int choose = InputUtil.getInputByInt(scanner);
             switch (choose) {
-                case 0:
+                case 1:
                     hallControl();
                     break;
-                case 1:
+                case 2:
                     addCinema();
                     break;
-                case 2:
+                case 3:
                     selectCinema();
                     break;
-                case 3:
+                case 4:
                     updateCinema();
                     break;
-                case 4:
+                case 5:
                     deleteCinema();
                     break;
-                case 5:
+                case 0:
                     return;
                 default:
                     System.out.println("输入错误请重新输入");

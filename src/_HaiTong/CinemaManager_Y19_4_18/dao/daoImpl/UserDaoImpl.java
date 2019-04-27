@@ -133,7 +133,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
     @Override
     public Session selectSessionForUser(int m_id, int c_id, int s_id) throws Exception {
-        String sql = "SELECT * FROM dvd_session WHERE s_movie = ? AND s_cinema = ? AND s_id = ?";
+        String sql = "SELECT * FROM dvd_session WHERE s_movie = ? AND s_cinema = ? AND s_id = ? AND s_startTime > NOW()";
         List<Object> list = new ArrayList<>();
         list.add(m_id);
         list.add(c_id);
@@ -149,7 +149,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     @Override
     public List<LinkedHashMap<Object, Object>> selectSessionListForUser(int m_id, int c_id) throws Exception {
         String sql = "SELECT s_id,c_name,h_name,m_name,s_startTime,s_m_duration,s_price,s_h_capacity,h_capacity  FROM dvd_session,dvd_cinema,dvd_movie,dvd_hall " +
-                "WHERE s_movie = ? AND s_cinema = ? AND s_cinema = c_id AND s_hall = h_id AND s_movie = m_id";
+                "WHERE s_movie = ? AND s_cinema = ? AND s_cinema = c_id AND s_hall = h_id AND s_movie = m_id AND s_startTime > NOW()";
         List<Object> list = new ArrayList<>();
         list.add(m_id);
         list.add(c_id);

@@ -21,7 +21,7 @@ public class AdminMenu {
         while (true) {
             System.out.println("欢迎您，管理员！");
             System.out.println("请选择操作：");
-            System.out.println("1.电影院管理 2.电影管理 3.场次管理 4.票房查询 5.修改密码 6.退出");
+            System.out.println("1.电影院管理 2.电影管理 3.场次管理 4.票房查询 5.修改密码 0.退出");
             int choose = InputUtil.getInputByInt(scanner);
             switch (choose) {
                 case 1:
@@ -39,7 +39,7 @@ public class AdminMenu {
                 case 5:
                     changePassword();
                     break;
-                case 6:
+                case 0:
                     return;
                 default:
                     System.out.println("输入错误请重新输入");

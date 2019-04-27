@@ -33,7 +33,7 @@ public class UserMenu {
             userinfo = globalUtil.getUserInfo();
             System.out.println("\n\n\n\n\n 欢迎您" + userinfo.getU_name() + "使用本系统");
             System.out.println("请选择操作：");
-            System.out.println("1.购买电影票 2.查询已购买影票 3.充值 4.猜你喜欢 5.修改密码 6.查看个人信息 7.退出");
+            System.out.println("1.购买电影票 2.查询已购买影票 3.充值 4.猜你喜欢 5.修改密码 6.查看个人信息 0.退出");
             int choose = InputUtil.getInputByInt(scanner);
             switch (choose) {
                 case 1:
@@ -54,7 +54,7 @@ public class UserMenu {
                 case 6:
                     seeUserInfo();
                     break;
-                case 7:
+                case 0:
                     globalUtil.clearUserInfo();
                     return;
                 default:
@@ -62,8 +62,6 @@ public class UserMenu {
             }
         }
     }
-
-
     /*
      * 查看个人信息
      * */
@@ -200,7 +198,7 @@ public class UserMenu {
         List<LinkedHashMap<Object, Object>> sessionList = userBiz.selectSessionListForUser(m_id, c_id);
         if (sessionList != null) {
             System.out.println("有如下场次供您选择：");
-            System.out.println("\n\n\n | 场次编号 | 电影院名称 |  场厅名称  |  电影名称  |  放映时间  |  持续时间  |    票价    |  剩余票数  | ");
+            System.out.println("\n\n\n |场次编号|影院名称| 场厅名称 | 电影名称 |   放映时间   |   持续时间   | 票价 | 剩余票数 | 总票数 |");
             for (LinkedHashMap<Object, Object> map : sessionList) {
                 for (Object key : map.keySet()) {//keySet获取map集合key的集合  然后在遍历key即可
                     String value = map.get(key).toString();//
@@ -268,7 +266,7 @@ public class UserMenu {
         if (tickets != null) {
             for (int i = 0; i < tickets.size(); i++) {
                 if (map.containsKey(tickets.get(i).getT_seat())) {
-                    map.put(tickets.get(i).getT_seat(), "*");
+                    map.put(tickets.get(i).getT_seat(), "**");
                 }
             }
         }
