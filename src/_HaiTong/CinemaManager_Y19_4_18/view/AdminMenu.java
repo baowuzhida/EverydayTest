@@ -47,6 +47,16 @@ public class AdminMenu {
         }
     }
 
+    /*
+     * 查看影评
+     * */
+    private void movieComment() throws Exception {
+        new MovieCommentControl().adminMovieControl();
+    }
+
+    /*
+     * 搜索票房
+     * */
     private void selectBoxOffice() throws Exception {
         List<BoxOffice> boxOffices = new ArrayList<>();
         boxOffices = adminBiz.selectBoxOffice();
@@ -58,6 +68,9 @@ public class AdminMenu {
         }
     }
 
+    /*
+     * 修改密码
+     * */
     private void changePassword() throws Exception {
         System.out.println("请先输入原密码：");
         String oldPassword = InputUtil.getInputByString(scanner);

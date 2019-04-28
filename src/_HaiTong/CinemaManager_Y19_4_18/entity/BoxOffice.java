@@ -52,7 +52,7 @@ public class BoxOffice {
     public String toString() {
         return "BoxOffice{" +
                 "电影编号 = " + b_movie +
-                ", 电影名称 = " + b_ticketsum +
+                ", 电影名称 = " + b_m_name +
                 ", 售出票总数 = " + b_ticketsum +
                 ", 总共收入 = " + b_sumearning +
                 '}';

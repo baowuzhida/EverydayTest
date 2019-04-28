@@ -134,6 +134,10 @@ public class MovieControl {
             String name = InputUtil.getInputByString(scanner);
             System.out.println("请输入电影时长（分钟）：");
             int duration = InputUtil.getMovieDuration(scanner);
+            if (duration == -1 ){
+                System.out.println("不能为负值，返回上一级！");
+                return;
+            }
             System.out.println("请输入电影类型（1-3）：");
             int type = InputUtil.getMovieType(scanner);
             System.out.println("请输入电影信息：");

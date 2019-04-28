@@ -28,12 +28,12 @@ public class UserMenu {
         movieBiz = new MovieBizImpl();
         cinemaBiz = new CinemaBizImpl();
         userBiz = new UserBizImpl();
+        userinfo = globalUtil.getUserInfo();
         while (true) {
             scanner = new Scanner(System.in);
-            userinfo = globalUtil.getUserInfo();
             System.out.println("\n\n\n\n\n 欢迎您" + userinfo.getU_name() + "使用本系统");
             System.out.println("请选择操作：");
-            System.out.println("1.购买电影票 2.查询已购买影票 3.充值 4.猜你喜欢 5.修改密码 6.查看个人信息 0.退出");
+            System.out.println("1.购买电影票 2.查询已购买影票 3.充值 4.猜你喜欢 5.修改密码 6.查看影评 7.查看个人信息  0.退出");
             int choose = InputUtil.getInputByInt(scanner);
             switch (choose) {
                 case 1:
@@ -52,6 +52,9 @@ public class UserMenu {
                     changePassword();
                     break;
                 case 6:
+                    movieComment();
+                    break;
+                case 7:
                     seeUserInfo();
                     break;
                 case 0:
@@ -62,6 +65,14 @@ public class UserMenu {
             }
         }
     }
+
+    /*
+     * 查看影评
+     * */
+    private void movieComment() throws Exception {
+        new MovieCommentControl().userMovieControl();
+    }
+
     /*
      * 查看个人信息
      * */
@@ -173,7 +184,7 @@ public class UserMenu {
     }
 
     /*
-     *购买电影票主程序
+     * 购买电影票主程序
      * */
     private void buyMovieTicket() throws Exception {
         if (selectMovie() == 2)
@@ -216,6 +227,7 @@ public class UserMenu {
             int capacity = userBiz.getCapacityByShid(session.getS_hall());
 
             int seat = chooseSeat(session, capacity);
+
             if (createTicket(session, seat)) {
                 System.out.println("购票成功！");
             } else
@@ -264,9 +276,9 @@ public class UserMenu {
 
         List<Ticket> tickets = userBiz.selectTicketFromSid(session.getS_id());
         if (tickets != null) {
-            for (int i = 0; i < tickets.size(); i++) {
-                if (map.containsKey(tickets.get(i).getT_seat())) {
-                    map.put(tickets.get(i).getT_seat(), "**");
+            for (Ticket ticket : tickets) {
+                if (map.containsKey(ticket.getT_seat())) {
+                    map.put(ticket.getT_seat(), "**");
                 }
             }
         }
@@ -279,7 +291,7 @@ public class UserMenu {
             System.out.print(" [ " + value + " ] ");
             index++;
         }
-        System.out.println("\n请选择座位：(带有*标记的为已售出的座位）");
+        System.out.println("\n请选择座位：(带有**标记的为已售出的座位）");
         int seat = InputUtil.getInputByTicket(scanner, capacity, map);
         return seat;
     }
@@ -323,7 +335,7 @@ public class UserMenu {
         List<LinkedHashMap<Object, Object>> ticketsList = userBiz.selectTicketFromUid(userinfo.getU_id());
         if (ticketsList != null) {
             System.out.println("\n当前已购买影票信息如下");
-            System.out.println("\n\n\n | 影票编号 | 用户编号 | 场次编号 | 座位编号 | 影院名称 | 场厅名称 | 电影名称 | 电影价格 | ");
+            System.out.println("\n\n\n |影票编号|用户编号|座位编号| 影院名称 | 场厅名称 | 电影名称 |  开始时间  |持续时间|电影价格| ");
             for (LinkedHashMap<Object, Object> map : ticketsList) {
                 for (Object key : map.keySet()) {//keySet获取map集合key的集合  然后在遍历key即可
                     String value = map.get(key).toString();//
@@ -332,6 +344,6 @@ public class UserMenu {
                 System.out.println("");
             }
         } else
-            System.out.println("暂无电影信息!");
+            System.out.println("暂无影票信息!");
     }
 }

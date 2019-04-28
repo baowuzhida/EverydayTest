@@ -98,7 +98,7 @@ public class SessionControl {
             }
 
             System.out.println("请输入价格：");
-            double s_price = InputUtil.getInputByDouble(scanner);
+            double s_price = InputUtil.getInputByPNDouble(scanner);
 
             Session session = new Session(s_c_id, s_h_id, s_m_id, s_startTime, s_endTime, movie.getM_duration(), s_price, s_h_id);//最后capacity传入shid通过数据库直接查找
             sessions.add(session);
@@ -176,7 +176,7 @@ public class SessionControl {
             }
 
             System.out.println("请输入价格：（不修改输入-1）");
-            double s_price = InputUtil.getInputByDouble(scanner);
+            double s_price = InputUtil.getInputByPrice(scanner);
 
             Session session = new Session(id, s_c_id, s_h_id, s_m_id, s_startTime, s_endTime, movie.getM_duration(), s_price, -1);
             sessions.add(session);

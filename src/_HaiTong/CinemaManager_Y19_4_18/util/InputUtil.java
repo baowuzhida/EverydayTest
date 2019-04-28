@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class InputUtil {
+
     public static int getInputByInt(Scanner input) {
         while (true) {
             input = new Scanner(System.in);
@@ -17,12 +18,58 @@ public class InputUtil {
         }
     }
 
+    public static int getInputByPNInt(Scanner input) {
+        while (true) {
+            input = new Scanner(System.in);
+            try {
+                int i = input.nextInt();//捕获输入其他不同的类型值
+                if (i > 0)
+                    return i;
+                else
+                    throw new InputMismatchException();
+            } catch (InputMismatchException e) {
+                System.out.println("输入类型错误！请重新输入：");
+            }
+        }
+    }
+
     public static double getInputByDouble(Scanner input) {
         while (true) {
             input = new Scanner(System.in);
             try {
+
                 double i = input.nextDouble();//捕获输入其他不同的类型值
                 return i;
+            } catch (InputMismatchException e) {
+                System.out.println("输入类型错误！请重新输入：");
+            }
+        }
+    }
+
+    public static double getInputByPNDouble(Scanner input) {
+        while (true) {
+            input = new Scanner(System.in);
+            try {
+                double i = input.nextDouble();//捕获输入其他不同的类型值
+                if (i > 0)
+                    return i;
+                else
+                    throw new InputMismatchException();
+            } catch (InputMismatchException e) {
+                System.out.println("输入类型错误！请重新输入：");
+            }
+        }
+    }
+
+    public static double getInputByPrice(Scanner input) {
+        while (true) {
+            input = new Scanner(System.in);
+            try {
+                double i = input.nextDouble();//捕获输入其他不同的类型值
+                if (i > 0 || i == -1)
+                    return i;
+                else
+                    throw new InputMismatchException();
             } catch (InputMismatchException e) {
                 System.out.println("输入类型错误！请重新输入：");
             }
@@ -99,7 +146,7 @@ public class InputUtil {
             input = new Scanner(System.in);
             try {
                 int i = input.nextInt();//捕获输入其他不同的类型值
-                if (i > 0 && i <= capacity && !map.get(i).equals("*"))
+                if (i > 0 && i <= capacity && !map.get(i).equals("**"))
                     return i;
                 else
                     throw new Exception();
@@ -117,14 +164,32 @@ public class InputUtil {
             try {
 
                 int i = input.nextInt();//捕获输入其他不同的类型值
-                if (i >1000 || i == -1)
+                if (i > 1000 || i == -1)
                     return i;
                 else
-                    throw  new Exception();
+                    throw new Exception();
             } catch (InputMismatchException e) {
                 System.out.println("输入类型错误！请重新输入：");
             } catch (Exception e) {
                 System.out.println("请输入1000以上的数值，或输入-1取消");
+            }
+        }
+    }
+
+    public static int getInputByMoviePoint(Scanner input) {
+        while (true) {
+            input = new Scanner(System.in);
+            try {
+
+                int i = input.nextInt();//捕获输入其他不同的类型值
+                if (i > 0 && i <= 5)
+                    return i;
+                else
+                    throw new Exception();
+            } catch (InputMismatchException e) {
+                System.out.println("输入类型错误！请重新输入：");
+            } catch (Exception e) {
+                System.out.println("请输入1-5的整数值");
             }
         }
     }

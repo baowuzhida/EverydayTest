@@ -133,7 +133,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
     @Override
     public Session selectSessionForUser(int m_id, int c_id, int s_id) throws Exception {
-        String sql = "SELECT * FROM dvd_session WHERE s_movie = ? AND s_cinema = ? AND s_id = ? AND s_startTime > NOW()";
+        String sql = "SELECT * FROM dvd_session WHERE s_movie = ? AND s_cinema = ? AND s_id = ? AND s_startTime > NOW() AND s_h_capacity > 0 ";
         List<Object> list = new ArrayList<>();
         list.add(m_id);
         list.add(c_id);
@@ -200,8 +200,8 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
     @Override
     public List<LinkedHashMap<Object, Object>> selectTicketFromUid(int u_id) throws Exception {
-        String sql = "SELECT t_id,t_user,t_session,t_seat,c_name,h_name,m_name,t_price FROM dvd_ticket,dvd_cinema,dvd_movie,dvd_hall " +
-                "WHERE t_user = ? AND t_cinema = c_id AND t_hall = h_id AND t_movie = m_id";
+        String sql = "SELECT t_id,t_user,t_seat,c_name,h_name,m_name,s_startTime,s_m_duration,t_price FROM dvd_session,dvd_ticket,dvd_cinema,dvd_movie,dvd_hall " +
+                "WHERE t_user = ? AND t_cinema = c_id AND t_hall = h_id AND t_movie = m_id AND t_session = s_id";
         List<Object> list = new ArrayList<>();
         list.add(u_id);
         List<LinkedHashMap<Object, Object>> ticketsList = executeQueryNocls(sql, list);

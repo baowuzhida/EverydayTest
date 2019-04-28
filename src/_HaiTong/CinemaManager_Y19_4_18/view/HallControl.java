@@ -53,7 +53,7 @@ public class HallControl {
             System.out.println("厂厅所属影院编号:");
             System.out.println(c_id);
             System.out.println("请输入厂厅容量：");
-            int capacity = InputUtil.getInputByInt(scanner);
+            int capacity = InputUtil.getInputByPNInt(scanner);
             Hall hall = new Hall(name, c_id, capacity);
             halls.add(hall);
             System.out.println("是否继续添加：");
