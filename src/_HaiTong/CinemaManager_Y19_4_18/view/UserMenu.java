@@ -21,17 +21,17 @@ public class UserMenu {
     private MovieBiz movieBiz;
     private CinemaBiz cinemaBiz;
     private UserBiz userBiz;
-    private User userinfo;
+    private User userInfo;
     private Scanner scanner;
 
     public void userMenu() throws Exception {
         movieBiz = new MovieBizImpl();
         cinemaBiz = new CinemaBizImpl();
         userBiz = new UserBizImpl();
-        userinfo = globalUtil.getUserInfo();
+        userInfo = globalUtil.getUserInfo();
         while (true) {
             scanner = new Scanner(System.in);
-            System.out.println("\n\n\n\n\n 欢迎您" + userinfo.getU_name() + "使用本系统");
+            System.out.println("\n\n\n\n\n 欢迎您" + userInfo.getU_name() + "使用本系统");
             System.out.println("请选择操作：");
             System.out.println("1.购买电影票 2.查询已购买影票 3.充值 4.猜你喜欢 5.修改密码 6.查看影评 7.查看个人信息  0.退出");
             int choose = InputUtil.getInputByInt(scanner);
@@ -78,12 +78,12 @@ public class UserMenu {
      * */
     private void seeUserInfo() throws Exception {
         System.out.println("\n您当前个人信息如下：");
-        System.out.println("用户名称： " + userinfo.getU_name());
-        if (userinfo.getU_type() == 1)
+        System.out.println("用户名称： " + userInfo.getU_name());
+        if (userInfo.getU_type() == 1)
             System.out.println("用户级别： VIP会员");
         else
             System.out.println("用户级别： 普通会员");
-        System.out.println("账户余额： " + userinfo.getU_account());
+        System.out.println("账户余额： " + userInfo.getU_account());
 
         System.out.println("输入任意键返回~: ");
         String choose = InputUtil.getInputByString(scanner);
@@ -140,7 +140,7 @@ public class UserMenu {
      * 充值
      * */
     private void reCharge() throws Exception {
-        System.out.println("\n当前余额为：" + userinfo.getU_account());
+        System.out.println("\n当前余额为：" + userInfo.getU_account());
         System.out.println("请选择充值数额：(一次充值1000及以上送VIP~)");
         System.out.println("1.【50】  2.【100】 3.【200】 4.【500】 5.【1000】 6.自定义（大于1000）Other.返回");
         int choose = InputUtil.getInputByInt(scanner);
@@ -300,11 +300,11 @@ public class UserMenu {
      * 生成影票
      * */
     private boolean createTicket(Session session, int seat) throws Exception {
-        int u_type = userinfo.getU_type();
-        double u_account = userinfo.getU_account();
+        int u_type = userInfo.getU_type();
+        double u_account = userInfo.getU_account();
         if (u_type == 1) {
             System.out.println("您是尊贵的VIP，电影票八折！");
-            int ifbuy = userBiz.userBuyTicket(userinfo.getU_id(), u_account, session, 1, seat);
+            int ifbuy = userBiz.userBuyTicket(userInfo.getU_id(), u_account, session, 1, seat);
             if (ifbuy == 1)
                 return true;
             else if (ifbuy == 2) {
@@ -315,7 +315,7 @@ public class UserMenu {
             }
         } else {
             System.out.println("您还不是VIP，一次性充值500送VIP打八折哦！");
-            int ifbuy = userBiz.userBuyTicket(userinfo.getU_id(), u_account, session, 0, seat);
+            int ifbuy = userBiz.userBuyTicket(userInfo.getU_id(), u_account, session, 0, seat);
             if (ifbuy == 1)
                 return true;
             else if (ifbuy == 2) {
@@ -331,8 +331,7 @@ public class UserMenu {
      * 查看已购影票
      * */
     private void selectMovieTicket() throws Exception {
-
-        List<LinkedHashMap<Object, Object>> ticketsList = userBiz.selectTicketFromUid(userinfo.getU_id());
+        List<LinkedHashMap<Object, Object>> ticketsList = userBiz.selectTicketFromUid(userInfo.getU_id());
         if (ticketsList != null) {
             System.out.println("\n当前已购买影票信息如下");
             System.out.println("\n\n\n |影票编号|用户编号|座位编号| 影院名称 | 场厅名称 | 电影名称 |  开始时间  |持续时间|电影价格| ");

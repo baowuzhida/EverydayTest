@@ -107,7 +107,7 @@ public class MovieCommentControl {
         }
         System.out.println("请输入影评内容：");
         String comment = InputUtil.getInputByString(scanner);
-        System.out.println("请输入电影评分：");
+        System.out.println("请输入电影评分：（1-5）");
         int point = InputUtil.getInputByMoviePoint(scanner);
 
         MovieComment movieComment = new MovieComment(m_id, userInfo.getU_id(), comment, point);
@@ -122,7 +122,7 @@ public class MovieCommentControl {
      * 删除影评
      * */
     private void deleteMovieComment() throws Exception {
-        System.out.println("你还敢随便删影评？？");
+        System.out.print("你还敢随便删影评？？");
         System.out.println("滚犊子！");
     }
 

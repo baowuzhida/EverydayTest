@@ -40,16 +40,16 @@ public class TimeUtil {
         return nowTime.getTime();
     }
 
-    public static boolean compareTime(Date Time1, Date Time2) {//比较开始和结束时间是否在这个影厅所在时间内
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-        String begin = df.format(Time1);//输入时间
-        String end = df.format(Time2);//输入时间
-        if (begin.compareTo(end)<=0) {
-            return true;//存在
-        } else {
-            return false;//不存在
-        }
-    }
+//    public static boolean compareTime(Date Time1, Date Time2) {//比较开始和结束时间是否在这个影厅所在时间内
+//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+//        String begin = df.format(Time1);//输入时间
+//        String end = df.format(Time2);//输入时间
+//        if (begin.compareTo(end)<=0) {
+//            return true;//存在
+//        } else {
+//            return false;//不存在
+//        }
+//    }
 
     public boolean isValidDate(String str) {
         boolean convertSuccess = true;
